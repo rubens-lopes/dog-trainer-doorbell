@@ -17,11 +17,13 @@
 </template>
 
 <script>
+const UM_SEGUNDO_EM_MILESEGUNDOS = 1000;
+
 export default {
   name: "AudioPlayer",
   data: () => ({
     ligado: false,
-    duracao: 0.5,
+    duracao: 7,
     cronometro: 0,
     contagemRegressiva: 0,
     contadorRegressivo: 0
@@ -34,23 +36,30 @@ export default {
       return this.duracao * 60;
     }
   },
+  destroyed() {
+    clearInterval(this.contadorRegressivo);
+    clearTimeout(this.cronometro);
+  },
   methods: {
+    tocar() {
+      this.$refs.audioPlayer && this.$refs.audioPlayer.play();
+    },
     tocarPausar() {
-      this.ligado ? this.desligarCronometros() : this.$refs.audioPlayer.play();
+      this.ligado ? this.desligarCronometros() : this.tocar();
     },
     configurarContadorRegressivo() {
-      this.ligado = true;
       clearInterval(this.contadorRegressivo);
       this.contagemRegressiva = this.duracaoEmSegundos;
     },
     ligarCronometros() {
+      this.ligado = true;
       this.contadorRegressivo = setInterval(() => {
         this.contagemRegressiva--;
-      }, 1000);
+      }, UM_SEGUNDO_EM_MILESEGUNDOS);
 
       this.cronometro = setTimeout(() => {
-        this.$refs.audioPlayer.play();
-      }, this.duracaoEmSegundos * 1000);
+        this.tocar();
+      }, this.duracaoEmSegundos * UM_SEGUNDO_EM_MILESEGUNDOS);
     },
     desligarCronometros() {
       this.ligado = false;
