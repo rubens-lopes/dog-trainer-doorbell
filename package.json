@@ -5,7 +5,9 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "docker:shell": "docker exec -it $(docker ps -qf name=dog-trainer-doorbell) /bin/bash",
+    "docker:up": "docker-compose up --build"
   },
   "dependencies": {
     "core-js": "^3.6.5",
