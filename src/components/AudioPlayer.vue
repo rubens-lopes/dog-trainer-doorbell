@@ -5,8 +5,8 @@
       @play="configurarContadorRegressivo"
       @pause="ligarCronometros"
     >
-      <source src="/audios/doorbell.ogg" type="audio/ogg" />
-      <source src="/audios/doorbell.mp3" type="audio/mp3" />
+      <source src="audios/doorbell.ogg" type="audio/ogg" />
+      <source src="audios/doorbell.mp3" type="audio/mp3" />
     </audio>
     <label v-show="ligado">Vai tocar em {{ contagemRegressiva }}</label>
     <div v-show="!ligado">
